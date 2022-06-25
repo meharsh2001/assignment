@@ -1,21 +1,111 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/> 
-<style>.img10{
-  background: url('img10.jpg')no-repeat;
-  width: 100%;
-  height: 7vh;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
-}
-</style>
-  </head>
-  <body>  HELLO  
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script><script src="https://kit.fontawesome.com/1b9cad90c0.js" crossorigin="anonymous"></script>
+<script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
+<script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-image: url('1.jpg');">
+  
+  <%var n = 1%>
+  <%userlist.forEach(user=>{%> 
+    <%n = n+1;%>
+    <%})%>
+    
+<div class="container" >
+<h2 style="margin-left: 45%">Donate a Book</h2>
+<div  style="margin-left: 10%">
+  <script>
+    function add(){
+      document.getElementById("myH1").removeAttribute("hidden", "true");
+    }
+    function added(){
+      document.getElementById("myH1").setAttribute("hidden", "true");
+      document.forms["form1"].submit();
+    }
+    function update(){
+      document.getElementById("myinput").removeAttribute("hidden", "true");
+    }
+    function form(){
+      document.forms["form2"].submit();
+    }
+    </script>
+<button onclick="add()"> <i class="fa-solid fa-plus"></i> </button>
+<form id="form1" method="post" action="/">
+    
+Name:<input type="text" name="name" value="name">
+Phone:<input type="number" name="number" value="1236">
+Email:<input type="email" name="email" value="meharsh2001@gmail.com"><br>
+<table>
+  <tr>
+    <th>S No.</th>
+    <th>Book Title</th>
+    <th>Author</th>
+    <th>Genre</th>
+   <th>year of publication</th>
+    <th>ISBM</th>
+    <th>Action  </th>
+  </tr>
+  <tr id="myH1" hidden="true">
+    <td><input type="text" name="srno" value="<%=n%>"></td>
+    <td><input type="text" name="title"></td>
+    <td><input type="text" name="author"></td>
+    <td><input type="text" name="genre"></td>
+    <td><input type="text" name="year"></td>
+    <td><input type="text" name="isbm"></td>
+  </form>
+    <td><button onclick="added()">save</button></td>
+    <tr id="myinput" hidden="true">
+      <form id="form2" method="post" action="/update">
+      <td><input type="text" id="trclass" name="sno"  value="" ></td>
+      <td><input type="text"  id="myinput0"  name="booktitle"  value="" ></td>
+      <td><input type="text"  id="myinput1" name="author" value="" ></td>
+      <td><input type="text"  id="myinput2" name="genre" value="" ></td>
+      <td><input type="text"  id="myinput3" name="yop" value="" ></td>
+      <td><input type="text"  id="myinput4" name="isbm" value="" ></td>
+      <td hidden><input type="text" id="updateid" name="id"  value=""></td>
+      <td><A onclick="form()" >save</A></td></form>
+
+    </tr>
+  </tr>
+
+  <%var i = 0%>
+  <%userlist.forEach(user=>{%>  
+    <% if (user.books[i].booktitle !== "nul" && user.books[i].booktitle !== "") {%>
+      <tr id="<%=user.books[i].sno%>" class="<%=user.books[i].sno%>">
+        <td id="<%=user.id%>" class="<%=user.id%>" hidden><%=user.id%></td>
+        <td><%=user.books[i].sno%></td>
+        <td><%=user.books[i].booktitle%></td>
+        <td><%=user.books[i].author%></td>
+        <td><%=user.books[i].genre%></td>
+        <td><%=user.books[i].yop%></td>
+        <td><%=user.books[i].isbm%></td>
+        <td><input type="text" name="id" value="<%=user.id%>" hidden="hidden"><a onclick="update()"><button id="myinput5" hidden="hidden">save</button> </form><button type="button"><i class="fa-solid fa-pen"></i></button></a>
+          <form method="post" action="/delete"><input type="text" name="id" value="<%=user.id%>" hidden="hidden"> <button onclick=""> <i class="fa-solid fa-trash"></i> </button></form></td>
+      
+          <td>
+        </tr>
+
+  
+  <%}%><%})%> 
+  <script>
+    $(document).ready(function(){
+      $("button").click(function(){
+           var trclass = $(this).closest('tr').children('td').attr('class'); 
+        document.getElementById("updateid").value = trclass ;
+        
+        var tdclass = $(this).closest('tr').attr('class'); 
+        document.getElementById("trclass").value = tdclass ;
+      });});
+    </script>
+    <h3 id="message"></h3>
+</table>
+</div>
+</div>
+ 
 </body>
 </html>
+
